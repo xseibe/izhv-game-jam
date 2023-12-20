@@ -2,9 +2,12 @@ using UnityEngine;
 
 public class CameraShakeMovement : MonoBehaviour
 {
-    [SerializeField, Range(0, 0.1f)] private float Amplitude = 0.015f;
+    [Header("References")]
     [SerializeField] private Transform cameraPos = null;
     [SerializeField] private Transform cameraHolderPos = null;
+
+    [Header("Settings")]
+    [SerializeField, Range(0, 0.1f)] private float Amplitude = 0.015f;
 
     private float toggleSpeed = 1.0f;
     private Vector3 startPos;
@@ -35,9 +38,6 @@ public class CameraShakeMovement : MonoBehaviour
     private void CheckMotion()
     {
         float speed = new Vector3(controller.velocity.x, 0, controller.velocity.z).magnitude;
-        Debug.Log("X: " + controller.velocity.x);
-        Debug.Log("Z: " + controller.velocity.z);
-
 
         if (speed < toggleSpeed) return;
         if (!playerController.IsGrounded) return;

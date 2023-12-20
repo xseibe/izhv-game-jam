@@ -2,20 +2,29 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] GameObject FirstDomino;
-    [SerializeField] Rigidbody UpPlatformRb;
+    [SerializeField] GameObject UpPlatformRb;
 
-    private bool releaseBalloonPlatform = false;
+    private Animator balloonPlatformAnimator;
 
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("ere");
+        balloonPlatformAnimator = UpPlatformRb.GetComponent<Animator>();
+
         DominoAction();
+    }
+
+    private void Update()
+    {
+
     }
 
     public void RopeTrigger()
     {
-        UpPlatformRb.AddForce(Vector3.up * 10f, ForceMode.Acceleration);
+        balloonPlatformAnimator.SetBool("ElevationTriggered", true);
     }
 
     private void DominoAction()

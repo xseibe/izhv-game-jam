@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] Transform playerTransform;
 
     private SettingsHelper settingsHelper;

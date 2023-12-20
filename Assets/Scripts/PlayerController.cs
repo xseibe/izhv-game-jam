@@ -3,9 +3,11 @@ using UnityEngine.Rendering.Universal;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] Camera Camera;
     [SerializeField] Transform GroundCheckTransform;
 
+    [Header("Settings")]
     [SerializeField] float WalkSpeed = 4.5f;
     [SerializeField] float CrouchSpeed = 2f;
     [SerializeField] float SprintSpeed = 10f;
