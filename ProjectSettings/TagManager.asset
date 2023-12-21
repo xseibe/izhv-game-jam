@@ -11,6 +11,8 @@ TagManager:
   - BlueBalloon
   - RedBalloon
   - Snowball
+  - UpPlatform
+  - FirstDomino
   layers:
   - Default
   - TransparentFX
@@ -25,7 +27,7 @@ TagManager:
   - Snowball
   - MaskBullet
   - GroundNoJump
-  - 
+  - NonIteractable
   - 
   - 
   - 

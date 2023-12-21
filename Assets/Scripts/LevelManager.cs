@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,18 +7,20 @@ public class LevelManager : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] GameObject FirstDomino;
-    [SerializeField] GameObject UpPlatformRb;
+    [SerializeField] GameObject UpPlatform;
+    [SerializeField] Animator CanvasAnimator;
 
     private Animator balloonPlatformAnimator;
     private float timeNeededToReset = 2f;
     private float rPressedTime = 0f;
+    private bool playerOnBoard = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        balloonPlatformAnimator = UpPlatformRb.GetComponent<Animator>();
+        balloonPlatformAnimator = UpPlatform.GetComponent<Animator>();
 
-        DominoAction();
+       // DominoAction();
     }
 
     private void Update()
@@ -40,6 +43,17 @@ public class LevelManager : MonoBehaviour
     public void RopeTrigger()
     {
         balloonPlatformAnimator.SetBool("ElevationTriggered", true);
+
+        // If player is on the platform, show the popup text.
+        if (playerOnBoard)
+            CanvasAnimator.SetTrigger("FirstLevelP");
+    }
+
+    public void PlayerOnBoard(bool stat)
+    {
+        playerOnBoard = stat;
+        if (stat && balloonPlatformAnimator.GetBool("ElevationTriggered"))
+            CanvasAnimator.SetTrigger("FirstLevelP");
     }
 
     private void DominoAction()

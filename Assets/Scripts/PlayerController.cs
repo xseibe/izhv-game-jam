@@ -9,12 +9,10 @@ public class PlayerController : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] float WalkSpeed = 4.5f;
-    [SerializeField] float CrouchSpeed = 2f;
     [SerializeField] float SprintSpeed = 10f;
     [SerializeField] float Gravity = 9.81f;
     [SerializeField] float JumpHeight = 1f;
 
-    [SerializeField] float GroundDistance = 0.2f;
     [SerializeField] float CameraFovChangeSpeed = 50f;
     [SerializeField] float SprintCameraFov = 80f;
 
@@ -33,7 +31,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 velocity;
     private float gravity;
 
-    private bool isCrouching;
     private bool isJumping = false;
     private bool isSprinting;
     private bool isMoving;
@@ -124,7 +121,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Jumping
-        if (Input.GetKeyDown(jumpKey) && (IsGrounded || IsGroundedCanJump) && jumpTimer <= 0 && !isCrouching && !isJumping)
+        if (Input.GetKeyDown(jumpKey) && (IsGrounded || IsGroundedCanJump) && jumpTimer <= 0 && !isJumping)
         {
             isJumping = true;
             velocity.y = Mathf.Sqrt(JumpHeight * -2f * gravity);
@@ -137,7 +134,7 @@ public class PlayerController : MonoBehaviour
             cameraFovChangeSpeed = CameraFovChangeSpeed;
             Speed = SprintSpeed;
         }
-        else if ((Input.GetKeyUp(sprintKey) || !Input.GetKey(forwardKey)) && !isCrouching)
+        else if ((Input.GetKeyUp(sprintKey) || !Input.GetKey(forwardKey)))
         {
             isSprinting = false;
             cameraFovChangeSpeed = CameraFovChangeSpeed * -1;

@@ -39,7 +39,7 @@ public class ShootingMask : MonoBehaviour
     {
         // Despawn
         if (other.tag == "Player")
-            Destroy(gameObject);
+            gameObject.SetActive(false);
     }
 
     // Update is called once per frame

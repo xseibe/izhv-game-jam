@@ -20,6 +20,24 @@ public class EventHandler : MonoBehaviour
                     Destroy(gameObject);
                 }
                 break;
+            case "UpPlatform":
+                if (other.gameObject.tag == "Player")
+                {
+                    levelManager.PlayerOnBoard(true);
+
+                }
+                break;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        switch (gameObject.tag)
+        {
+            case "UpPlatform":
+                if (other.gameObject.tag == "Player")
+                    levelManager.PlayerOnBoard(false);
+                break;
         }
     }
 }
