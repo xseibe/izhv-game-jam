@@ -14,7 +14,6 @@ public class SetDefaultPlayerPrefs : MonoBehaviour
         PlayerPrefs.SetString("RightKey", KeyCode.D.ToString());
 
         PlayerPrefs.SetString("JumpKey", KeyCode.Space.ToString());
-        PlayerPrefs.SetString("CrouchKey", KeyCode.LeftControl.ToString());
         PlayerPrefs.SetString("SprintKey", KeyCode.LeftShift.ToString());
 
         // Mouse

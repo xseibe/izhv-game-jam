@@ -10,19 +10,13 @@ public class ThrowSnowballs : MonoBehaviour
     [SerializeField] float ThrowCooldown;
     [SerializeField] float ThrowForce;
     [SerializeField] float ThrowUpForce;
+    [SerializeField] float despawnTime = 5f;
 
     private float throwTimer = 0f;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(Camera.position, Camera.forward, Color.white);
         throwTimer -= Time.deltaTime;
 
         // If the cooldown passed
@@ -41,6 +35,8 @@ public class ThrowSnowballs : MonoBehaviour
 
         // Adding force to the snowball
         snowballRb.AddForce(Camera.forward * ThrowForce + transform.up * ThrowUpForce, ForceMode.Impulse);
+
+        Destroy(snowball, despawnTime);
 
         throwTimer = ThrowCooldown;
     }    

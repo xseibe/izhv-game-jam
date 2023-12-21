@@ -1,4 +1,6 @@
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -7,11 +9,12 @@ public class LevelManager : MonoBehaviour
     [SerializeField] GameObject UpPlatformRb;
 
     private Animator balloonPlatformAnimator;
+    private float timeNeededToReset = 2f;
+    private float rPressedTime = 0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("ere");
         balloonPlatformAnimator = UpPlatformRb.GetComponent<Animator>();
 
         DominoAction();
@@ -19,7 +22,19 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            rPressedTime = Time.time;
+        }
+        else if (Input.GetKey(KeyCode.R))
+        {
+            if (Time.time - rPressedTime > timeNeededToReset)
+            {
+                rPressedTime = float.PositiveInfinity;
 
+                ResetLevel();
+            }
+        }
     }
 
     public void RopeTrigger()
@@ -30,5 +45,11 @@ public class LevelManager : MonoBehaviour
     private void DominoAction()
     {
         FirstDomino.transform.Rotate(-11, 0, 0);
+    }
+
+    private void ResetLevel()
+    {
+        // Reloads the current scene.
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

@@ -19,8 +19,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float SprintCameraFov = 80f;
 
     [SerializeField] LayerMask GroundMask;
+    [SerializeField] LayerMask GroundMaskNoJump;
 
     public bool IsGrounded { get; set; }
+    public bool IsGroundedCanJump { get; set; }
+
     public float Speed { get; private set; }
 
     private CharacterController controller;
@@ -93,6 +96,7 @@ public class PlayerController : MonoBehaviour
         jumpTimer -= Time.deltaTime;
 
         IsGrounded = CheckIfGrounded();
+        IsGroundedCanJump = CheckIfGroundedCanJump();
 
         vec.x = Input.GetAxis("Horizontal");
         if (isSprinting) { vec.x *= 0.5f; }
@@ -107,7 +111,7 @@ public class PlayerController : MonoBehaviour
         anim.x = Mathf.Lerp(anim.x, vec.x, Time.deltaTime * 8f);
         anim.z = Mathf.Lerp(anim.z, vec.z, Time.deltaTime * 8f);
 
-        if (!IsGrounded)
+        if (!(IsGrounded || IsGroundedCanJump))
         {
             velocity.y -= Gravity * Time.deltaTime;
         }
@@ -120,28 +124,10 @@ public class PlayerController : MonoBehaviour
         }
 
         // Jumping
-        if (Input.GetKeyDown(jumpKey) && IsGrounded && jumpTimer <= 0 && !isCrouching && !isJumping)
+        if (Input.GetKeyDown(jumpKey) && (IsGrounded || IsGroundedCanJump) && jumpTimer <= 0 && !isCrouching && !isJumping)
         {
             isJumping = true;
             velocity.y = Mathf.Sqrt(JumpHeight * -2f * gravity);
-        }
-
-        // Crouching
-        if (Input.GetKey(crouchKey) && IsGrounded && !isSprinting)
-        {
-            float lastHeight = controller.height;
-            controller.height = Mathf.MoveTowards(controller.height, crouchingHeight, 3.5f * Time.deltaTime);
-            Vector3 newVec = transform.position;
-            newVec.y = (controller.height - lastHeight);
-            transform.position += newVec * 0.5f;
-            isCrouching = true;
-            Speed = CrouchSpeed;
-        }
-        else if (!Input.GetKey(crouchKey))
-        {
-            controller.height = Mathf.MoveTowards(controller.height, standingHeight, 3.5f * Time.deltaTime);
-            isCrouching = false;
-            Speed = WalkSpeed;
         }
 
         // Sprinting
@@ -157,8 +143,6 @@ public class PlayerController : MonoBehaviour
             cameraFovChangeSpeed = CameraFovChangeSpeed * -1;
             Speed =  WalkSpeed;
         }
-
-      //  controller.Move(velocity * Time.deltaTime);
     }
 
     private void FixedUpdate()
@@ -176,8 +160,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Checks if player is standing on jumpable ground.
     private bool CheckIfGrounded()
     {
         return Physics.CheckSphere(GroundCheckTransform.position, controller.radius - 0.005f, GroundMask);
+    }
+
+    // Checks if player is standing on nonjumpable ground.
+    private bool CheckIfGroundedCanJump()
+    {
+        return Physics.CheckSphere(GroundCheckTransform.position, controller.radius - 0.005f, GroundMaskNoJump);
     }
 }

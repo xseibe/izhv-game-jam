@@ -17,7 +17,6 @@ public class SettingsHelper : MonoBehaviour
         ForwardKey = Enum.TryParse<KeyCode>(PlayerPrefs.GetString("ForwardKey"), out ForwardKey) ? ForwardKey : KeyCode.W;
         JumpKey = Enum.TryParse<KeyCode>(PlayerPrefs.GetString("JumpKey"), out JumpKey) ? JumpKey : KeyCode.Space;
         SprintKey = Enum.TryParse<KeyCode>(PlayerPrefs.GetString("SprintKey"), out SprintKey) ? SprintKey : KeyCode.LeftShift;
-        CrouchKey = Enum.TryParse<KeyCode>(PlayerPrefs.GetString("CrouchKey"), out CrouchKey) ? CrouchKey : KeyCode.LeftControl;
         MouseSensitivity = PlayerPrefs.GetFloat("MouseSensitivity");
     }
 

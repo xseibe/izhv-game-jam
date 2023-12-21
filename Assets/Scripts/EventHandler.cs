@@ -16,8 +16,6 @@ public class EventHandler : MonoBehaviour
             case "HoldingRope":
                 if (other.tag == "LastDomino")
                 {
-                    Debug.Log("Trigger");
-
                     levelManager.RopeTrigger();
                     Destroy(gameObject);
                 }
