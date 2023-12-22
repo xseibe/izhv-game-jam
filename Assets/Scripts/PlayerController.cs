@@ -84,6 +84,12 @@ public class PlayerController : MonoBehaviour
         jumpCooldown = 0.3f;
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(GroundCheckTransform.position, controller.radius - 0.2f);
+
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -157,12 +163,12 @@ public class PlayerController : MonoBehaviour
     // Checks if player is standing on jumpable ground.
     private bool CheckIfGrounded()
     {
-        return Physics.CheckSphere(GroundCheckTransform.position, controller.radius - 0.005f, GroundMask);
+        return Physics.CheckSphere(GroundCheckTransform.position, controller.radius - 0.2f, GroundMask);
     }
 
     // Checks if player is standing on nonjumpable ground.
     private bool CheckIfGroundedCanJump()
     {
-        return Physics.CheckSphere(GroundCheckTransform.position, controller.radius - 0.005f, GroundMaskNoJump);
+        return Physics.CheckSphere(GroundCheckTransform.position, controller.radius - 0.2f, GroundMaskNoJump);
     }
 }

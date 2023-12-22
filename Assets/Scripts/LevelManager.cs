@@ -24,14 +24,14 @@ public class LevelManager : MonoBehaviour
     private float timeNeededToReset = 2f;
     private float rPressedTime = 0f;
     private bool playerOnBoard = false;
-    private bool IsCutscene = true;
+    private bool IsCutscene = false;
 
     private GameObject cutscenePanel;
 
     // Start is called before the first frame update
     void Start()
     {
-        // Assign current level's cutscene.
+        // Assign current level's cutscene
         cutscenePanel = Lvl2IntroTextPanel ?? null;
 
         if (UpPlatform != null)
@@ -43,8 +43,7 @@ public class LevelManager : MonoBehaviour
         // Handle pausing the game
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log($"esx {IsCutscene}");
-            if (GamePaused && IsCutscene) CutsceneEnd(cutscenePanel);
+            if (GamePaused && IsCutscene && cutscenePanel != null) CutsceneEnd(cutscenePanel);
             else if (GamePaused) UnpauseGame();
             else PauseGame();
         }
@@ -89,6 +88,7 @@ public class LevelManager : MonoBehaviour
 
     public void PauseGame()
     {
+        Debug.Log($"pause {IsCutscene}");
         if (!IsCutscene)
         PausePanel.SetActive(true);
 
