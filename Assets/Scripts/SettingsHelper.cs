@@ -8,7 +8,6 @@ public class SettingsHelper
     public KeyCode ForwardKey;
     public KeyCode JumpKey;
     public KeyCode SprintKey;
-    public KeyCode CrouchKey;
     public KeyCode InteractionKey;
 
     public float MouseSensitivity;

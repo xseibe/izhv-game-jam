@@ -13,6 +13,11 @@ TagManager:
   - Snowball
   - UpPlatform
   - FirstDomino
+  - MoleculeEnemy
+  - CHeart
+  - CShield
+  - CTime
+  - CWater
   layers:
   - Default
   - TransparentFX

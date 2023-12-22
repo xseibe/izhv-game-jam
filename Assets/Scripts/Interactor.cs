@@ -22,7 +22,8 @@ public class Interactor : MonoBehaviour
 
     // Dictionary of the interaction quotes.
     private Dictionary<string, string> keyValuePairs = new Dictionary<string, string>() {
-        {"FirstDomino", "Push"}
+        {"FirstDomino", "Push"},
+        {"SecondLevelEntrance", "Open"},
     };
 
     // Start is called before the first frame update

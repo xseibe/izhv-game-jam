@@ -37,7 +37,6 @@ public class PlayerController : MonoBehaviour
 
     private float standingHeight;
     private float normalCameraFov;
-    private float crouchingHeight;
 
     private float cameraFovChangeSpeed;
     private float mouseSensitivity;
@@ -71,7 +70,6 @@ public class PlayerController : MonoBehaviour
         Speed = WalkSpeed;
 
         standingHeight = controller.height;
-        crouchingHeight = standingHeight * 0.6f;
 
         standingCenter = controller.center;
         crouchingCenter = new Vector3(standingCenter.x, standingCenter.y - 0.1f, standingCenter.z);
@@ -82,7 +80,6 @@ public class PlayerController : MonoBehaviour
         forwardKey = settingsHelper.ForwardKey;
         jumpKey = settingsHelper.JumpKey;
         sprintKey = settingsHelper.SprintKey;
-        crouchKey = settingsHelper.CrouchKey;
 
         jumpCooldown = 0.3f;
     }

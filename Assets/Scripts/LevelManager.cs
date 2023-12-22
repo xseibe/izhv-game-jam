@@ -1,13 +1,17 @@
+using JetBrains.Annotations;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
     [Header("References")]
+    [CanBeNull]
     [SerializeField] GameObject FirstDomino;
+    [CanBeNull]
     [SerializeField] GameObject UpPlatform;
+    [CanBeNull]
+
     [SerializeField] Animator CanvasAnimator;
 
     private Animator balloonPlatformAnimator;
@@ -18,13 +22,13 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        balloonPlatformAnimator = UpPlatform.GetComponent<Animator>();
-
-       // DominoAction();
+        if (UpPlatform != null)
+            balloonPlatformAnimator = UpPlatform.GetComponent<Animator>();
     }
 
     private void Update()
     {
+        // Reset level
         if (Input.GetKeyDown(KeyCode.R))
         {
             rPressedTime = Time.time;
@@ -56,12 +60,7 @@ public class LevelManager : MonoBehaviour
             CanvasAnimator.SetTrigger("FirstLevelP");
     }
 
-    private void DominoAction()
-    {
-        FirstDomino.transform.Rotate(-11, 0, 0);
-    }
-
-    private void ResetLevel()
+    public void ResetLevel()
     {
         // Reloads the current scene.
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
