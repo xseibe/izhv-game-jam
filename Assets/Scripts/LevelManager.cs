@@ -6,28 +6,49 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField] GameObject PausePanel;
+
     [CanBeNull]
     [SerializeField] GameObject FirstDomino;
     [CanBeNull]
     [SerializeField] GameObject UpPlatform;
     [CanBeNull]
+    [SerializeField] GameObject Lvl2IntroTextPanel;
 
     [SerializeField] Animator CanvasAnimator;
+
+    [HideInInspector]
+    public bool GamePaused { get; private set; } = false;
 
     private Animator balloonPlatformAnimator;
     private float timeNeededToReset = 2f;
     private float rPressedTime = 0f;
     private bool playerOnBoard = false;
+    private bool IsCutscene = true;
+
+    private GameObject cutscenePanel;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Assign current level's cutscene.
+        cutscenePanel = Lvl2IntroTextPanel ?? null;
+
         if (UpPlatform != null)
             balloonPlatformAnimator = UpPlatform.GetComponent<Animator>();
     }
 
     private void Update()
     {
+        // Handle pausing the game
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log($"esx {IsCutscene}");
+            if (GamePaused && IsCutscene) CutsceneEnd(cutscenePanel);
+            else if (GamePaused) UnpauseGame();
+            else PauseGame();
+        }
+
         // Reset level
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -64,5 +85,36 @@ public class LevelManager : MonoBehaviour
     {
         // Reloads the current scene.
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void PauseGame()
+    {
+        if (!IsCutscene)
+        PausePanel.SetActive(true);
+
+        Time.timeScale = 0f;
+        GamePaused = true;
+    }
+
+    public void UnpauseGame()
+    {
+        if (!IsCutscene)
+        PausePanel.SetActive(false);
+
+        Time.timeScale = 1f;
+        GamePaused = false;
+    }
+
+    public void CutsceneStart()
+    {
+        IsCutscene = true;
+        PauseGame();
+    }
+    public void CutsceneEnd(GameObject cutscenePanel)
+    {
+        UnpauseGame();
+
+        cutscenePanel.SetActive(false);
+        IsCutscene = false;
     }
 }

@@ -33,6 +33,8 @@ public class MoleculeController : MonoBehaviour
     private List<GameObject> healthPointList = new List<GameObject>();
     private TMP_Text waterText;
     private int collectedWater = 0;
+    private GameObject shieldImage;
+    private bool shieldActive = false;
 
     private LevelManager levelManager;
 
@@ -52,6 +54,7 @@ public class MoleculeController : MonoBehaviour
         levelManager = FindObjectOfType<LevelManager>();
 
         waterText = CanvasObj.transform.Find("WaterBar/WaterText").GetComponent<TMP_Text>();
+        shieldImage = CanvasObj.transform.Find("HealthBar/ShieldImage").gameObject;
     }
 
     void Update()
@@ -65,6 +68,10 @@ public class MoleculeController : MonoBehaviour
 
     private void Movement()
     {
+        // If game is paused, block moving
+        if (levelManager.GamePaused)
+            return;
+
         moveDirection = Vector3.zero;
 
         if (Input.GetKey(KeyCode.A))
@@ -100,6 +107,14 @@ public class MoleculeController : MonoBehaviour
     private void HandleImmunity()
     {
         immuneTimer -= Time.deltaTime;
+
+        // Deactivates the shield UI image
+        if (shieldActive && immuneTimer <= 0)
+        {
+            shieldImage.SetActive(false);
+            shieldActive = false;
+        }
+
         isImmune = immuneTimer > 0;
     }
 
@@ -121,7 +136,6 @@ public class MoleculeController : MonoBehaviour
         // Do the chain reaction and lower player's health
         if (collision.gameObject.tag == "MoleculeEnemy" && !isImmune)
         {
-            Debug.Log("Hit");
             healthPointList[--playerHealth].SetActive(false);
 
             // Resets current level if player health is 0
@@ -150,7 +164,9 @@ public class MoleculeController : MonoBehaviour
             case "CShield":
                 Destroy(other.gameObject);
                 isImmune = true;
+                shieldActive = true;
                 immuneTimer = 5;
+                shieldImage.SetActive(true);
                 break;
             // Stops time for 5 seconds
             case "CTime":

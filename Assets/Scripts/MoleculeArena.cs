@@ -37,10 +37,19 @@ public class MoleculeArena : MonoBehaviour
         // Init spawn.
         SpawnMolecule(ObjCollider.bounds, MoleculeInitForce, MoleculeInitCount);
         SpawnWater();
+
+        // Init text
+        levelManager.CutsceneStart();
     }
 
     private void Update()
     {
+        // If ESC is pressed
+        if (levelManager.GamePaused && Input.GetKeyDown(KeyCode.Escape))
+        {
+
+        }
+
         // Spawn collectible in interval defined in SerializeField
         TryToSpawnCollectible();
     }
