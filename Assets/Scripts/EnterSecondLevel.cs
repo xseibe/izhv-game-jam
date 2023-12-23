@@ -1,8 +1,11 @@
-public class EnterSecondLevel : IInteractable
-{ 
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class EnterSecondLevel : MonoBehaviour, IInteractable
+{
     public void Interact()
     {
-        throw new System.NotImplementedException();
+        SceneManager.LoadScene(1);
     }
 
     public bool InteractionAllowed()

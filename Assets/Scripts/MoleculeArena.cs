@@ -44,12 +44,6 @@ public class MoleculeArena : MonoBehaviour
 
     private void Update()
     {
-        // If ESC is pressed
-        if (levelManager.GamePaused && Input.GetKeyDown(KeyCode.Escape))
-        {
-
-        }
-
         // Spawn collectible in interval defined in SerializeField
         TryToSpawnCollectible();
     }
@@ -72,6 +66,7 @@ public class MoleculeArena : MonoBehaviour
     {
         GameObject collectible = Collectibles[Random.Range(0, Collectibles.Count)];
         Instantiate(collectible, RandomPointInBounds(bounds), collectible.transform.rotation);
+        CollectiblesSpawned++;
     }
 
     public void SpawnWater()

@@ -88,7 +88,6 @@ public class LevelManager : MonoBehaviour
 
     public void PauseGame()
     {
-        Debug.Log($"pause {IsCutscene}");
         if (!IsCutscene)
         PausePanel.SetActive(true);
 

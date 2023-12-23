@@ -84,12 +84,6 @@ public class PlayerController : MonoBehaviour
         jumpCooldown = 0.3f;
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawSphere(GroundCheckTransform.position, controller.radius - 0.2f);
-
-    }
-
     // Update is called once per frame
     void Update()
     {

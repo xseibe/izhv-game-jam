@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MoleculeController : MonoBehaviour
 {
@@ -159,6 +160,7 @@ public class MoleculeController : MonoBehaviour
                 MoleculeArenaScript.CollectiblesSpawned--;
                 healthPointList.ForEach(h => h.SetActive(true));
                 playerHealth = 5;
+                MoleculeArenaScript.CollectiblesSpawned--;
                 break;
             // Make player immune for 5 seconds
             case "CShield":
@@ -167,6 +169,7 @@ public class MoleculeController : MonoBehaviour
                 shieldActive = true;
                 immuneTimer = 5;
                 shieldImage.SetActive(true);
+                MoleculeArenaScript.CollectiblesSpawned--;
                 break;
             // Stops time for 5 seconds
             case "CTime":
@@ -174,13 +177,14 @@ public class MoleculeController : MonoBehaviour
                 Time.timeScale = 0;
                 pauseTimer = 5f;
                 isPaused = true;
+                MoleculeArenaScript.CollectiblesSpawned--;
                 break;
             // Collect water drop, spawns another one
             case "CWater":
                 Destroy(other.gameObject);
                 if (++collectedWater == MaxWater)
                 {
-                    // Load third level
+                    SceneManager.LoadScene(2);
                 }
                 MoleculeArenaScript.SpawnWater();
                 waterText.text = $"{collectedWater}/{MaxWater}";

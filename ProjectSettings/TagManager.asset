@@ -18,6 +18,7 @@ TagManager:
   - CShield
   - CTime
   - CWater
+  - SecondLevelEntrance
   layers:
   - Default
   - TransparentFX
