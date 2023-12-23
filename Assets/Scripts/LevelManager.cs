@@ -90,7 +90,9 @@ public class LevelManager : MonoBehaviour
     {
         // Don't pause when, there is some UI interaction
         if (Cursor.visible)
+        {
             return;
+        }
 
         if (!IsCutscene)
         {
@@ -106,7 +108,7 @@ public class LevelManager : MonoBehaviour
     public void UnpauseGame()
     {
         if (!IsCutscene)
-        PausePanel.SetActive(false);
+            PausePanel.SetActive(false);
 
         Time.timeScale = 1f;
         GamePaused = false;
@@ -116,6 +118,9 @@ public class LevelManager : MonoBehaviour
 
     public void CutsceneStart()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
         IsCutscene = true;
         PauseGame();
     }

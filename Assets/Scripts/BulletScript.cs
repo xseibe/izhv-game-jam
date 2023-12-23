@@ -16,7 +16,7 @@ public class BulletScript : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // If the collision object is not a balloon, skip.
-        string collisionTagName = collision.gameObject.tag;
+        string collisionTagName = collision.collider.tag;
         if (!collisionTagName.Contains("Balloon"))
         {
             Destroy(gameObject);
@@ -30,7 +30,7 @@ public class BulletScript : MonoBehaviour
             .Any(clr => bulletMaterialName.Contains(clr) && !collisionTagName.Contains(clr)))
         {
             // Destroy balloon platform
-            Destroy(collision.gameObject.transform.parent.parent.gameObject);
+            Destroy(collision.collider.gameObject.transform.parent.parent.gameObject);   
         }
 
         // Destroy bullet

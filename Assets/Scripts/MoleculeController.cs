@@ -16,7 +16,6 @@ public class MoleculeController : MonoBehaviour
 
     private int playerHealth = 5;
 
-    private SettingsHelper settings;
     private CharacterController controller;
     private float sensitivity;
     private float rotationX, rotationY;
@@ -41,8 +40,8 @@ public class MoleculeController : MonoBehaviour
 
     private void Start()
     {
-        settings = SettingsHelper.GetInstance();
-        sensitivity = settings.MouseSensitivity;
+        // TODO: connect with settingsHelper
+        sensitivity = 5f;
         controller = GetComponent<CharacterController>();
         sphereCollider = GetComponent<SphereCollider>();
 
@@ -184,6 +183,9 @@ public class MoleculeController : MonoBehaviour
                 Destroy(other.gameObject);
                 if (++collectedWater == MaxWater)
                 {
+                    // Finished, collected 20 waterdrops.
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.Confined;
                     SceneManager.LoadScene(2);
                 }
                 MoleculeArenaScript.SpawnWater();
