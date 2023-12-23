@@ -53,10 +53,6 @@ public class PlayerController : MonoBehaviour
 
     // Character Controller
     private Vector3 standingCenter;
-    private Vector3 crouchingCenter;
-
-    // PostProcessing
-    private MotionBlur motionBlur;
 
     // Movement
     private Vector3 vec = Vector3.zero;
@@ -72,7 +68,6 @@ public class PlayerController : MonoBehaviour
         standingHeight = controller.height;
 
         standingCenter = controller.center;
-        crouchingCenter = new Vector3(standingCenter.x, standingCenter.y - 0.1f, standingCenter.z);
 
         normalCameraFov = Camera.fieldOfView;
 

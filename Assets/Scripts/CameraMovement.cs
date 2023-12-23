@@ -5,8 +5,6 @@ public class CameraMovement : MonoBehaviour
     [Header("References")]
     [SerializeField] Transform playerTransform;
 
-    private SettingsHelper settingsHelper;
-
     private float rotationX = 0f;
     private float rotationY = 0f;
     private float animX = 0f;
@@ -17,8 +15,8 @@ public class CameraMovement : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        settingsHelper = SettingsHelper.GetInstance();
-        sensitivity = settingsHelper.MouseSensitivity;
+        // TODO: Match with settingsHelper
+        sensitivity = 5f;
     }
 
     // Update is called once per frame
