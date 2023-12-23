@@ -55,6 +55,8 @@ public class Interactor : MonoBehaviour
                     if (hitinfo.collider.gameObject.TryGetComponent(out IInteractable interactObj) && interactObj.InteractionAllowed())
                         interactObj.Interact();
             }
+            else
+                interactText.text = string.Empty;
         }
         else
         {
